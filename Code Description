@@ -1,0 +1,112 @@
+code description:
+Code Block 1: Importing Libraries
+python
+Copy
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, mean_squared_error
+Purpose:
+
+Imports all necessary Python libraries for data analysis, visualization, and machine learning
+
+Key libraries include:
+
+pandas and numpy for data manipulation
+
+matplotlib and seaborn for visualization
+
+sklearn modules for machine learning tasks (data splitting, preprocessing, models, and evaluation)
+
+Code Block 2: Loading Data
+python
+Copy
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00601/ai4i2020.csv"
+data = pd.read_csv(url)
+Purpose:
+
+Loads the predictive maintenance dataset from UCI Machine Learning Repository
+
+The dataset contains sensor data from industrial machines with failure indicators
+
+Stores the data in a pandas DataFrame named data
+
+Code Block 3: Displaying Data Head
+python
+Copy
+data.head()
+Purpose:
+
+Shows the first 5 rows of the dataset to get a quick overview
+
+Reveals columns like:
+
+UDI: Unique identifier
+
+Product ID
+
+Type: Machine type (L, M, H)
+
+Sensor measurements (air temperature, process temperature, rotational speed, torque, tool wear)
+
+Machine failure indicator (binary)
+
+Failure type indicators (TWF, HDF, PWF, OSF, RNF)
+
+Code Block 4: Checking Missing Values
+python
+Copy
+print("Missing Values:\n", data.isnull().sum())
+Purpose:
+
+Checks for missing/null values in the dataset
+
+Output shows no missing values in any column (all counts are 0)
+
+Important for data quality assessment before analysis
+
+Code Block 5: Summary Statistics
+python
+Copy
+print("\nSummary Statistics:\n", data.describe())
+Purpose:
+
+Generates descriptive statistics for numerical columns
+
+Shows count, mean, std, min, max, and quartiles
+
+Key observations:
+
+Machine failure rate is low (3.39% of samples)
+
+Sensor measurements have different scales that may need normalization
+
+Most failure type indicators are rare (all < 1.5% occurrence)
+
+Code Block 6: Visualizing Sensor Trends
+python
+Copy
+plt.figure(figsize=(12, 6))
+sns.pairplot(data[['Process temperature [K]', 'Rotational speed [rpm]',
+                   'Torque [Nm]', 'Tool wear [min]', 'Machine failure']],
+             hue='Machine failure', palette='viridis')
+plt.title("Sensor Readings vs Machine Failure")
+plt.show()
+Purpose:
+
+Creates a pairplot visualization showing relationships between sensor measurements
+
+Colors points by machine failure status (0=no failure, 1=failure)
+
+Helps identify:
+
+Potential correlations between variables
+
+Differences in sensor readings between failed/non-failed machines
+
+Outliers or unusual patterns in the data
